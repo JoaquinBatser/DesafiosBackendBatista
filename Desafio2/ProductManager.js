@@ -3,10 +3,27 @@ import fs from 'fs'
 class ProductManager {
   constructor() {
     this.path = './products.json'
-    this.products = JSON.parse(fs.readFileSync(this.path, 'utf-8'))
-    this.productsIdCounter = 1
+    this.products = this.loadProducts()
+    if (this.products.length === 0) {
+      this.productsIdCounter = 1
+    } else {
+      const lastProduct = this.products[this.products.length - 1]
+      this.productsIdCounter = lastProduct.id + 1
+    }
   }
 
+  loadProducts() {
+    if (!fs.existsSync(this.path)) {
+      fs.writeFileSync(this.path, '[]')
+    } else {
+      try {
+        const fileContent = fs.readFileSync(this.path, 'utf-8')
+        return JSON.parse(fileContent)
+      } catch (error) {
+        return []
+      }
+    }
+  }
   addProduct({ title, description, price, thumbnail, code, stock }) {
     if (this.products.some((product) => product.code === code)) {
       throw new Error(`Products with code ${code} already exists`)
@@ -28,61 +45,28 @@ class ProductManager {
       stock,
     }
 
-    fs.readFile(this.path, 'utf8', (err, data) => {
-      if (err) {
-        throw new Error('Error reading products file')
-      }
+    this.products.push(product)
 
-      let products = []
-      if (data) {
-        try {
-          products = JSON.parse(data)
-        } catch (err) {
-          throw new Error('Error parsing products file')
-        }
-      }
+    fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2))
 
-      products.push(product)
-
-      fs.writeFile(this.path, JSON.stringify(products), (err) => {
-        if (err) {
-          throw new Error('Error writing products file')
-        }
-
-        console.log('Product added successfully')
-      })
-    })
+    console.log('Product added successfully')
   }
 
-  // addProduct({ title, description, price, thumbnail, code, stock }) {
-  //   if (this.products.some((product) => product.code === code)) {
-  //     console.log(`Products with code ${code} already exists`)
-  //     return
-  //   }
+  updateProduct(id, updatedProduct) {
+    try {
+      const parsedId = parseInt(id)
+      const productIndex = this.products.findIndex((product) => product.id === parsedId)
+      if (productIndex === -1) {
+        throw new Error('Product not found')
+      }
+      const updatedProductWithId = { id: parsedId, ...updatedProduct }
+      this.products[productIndex] = updatedProductWithId
 
-  //   if (!title || !description || !price || !thumbnail || !code || !stock) {
-  //     throw new Error(
-  //       'Every product must have a title, description, price, thumbnail, code and stock'
-  //     )
-  //   }
-
-  //   const product = {
-  //     id: this.productsIdCounter++,
-  //     title,
-  //     description,
-  //     price,
-  //     thumbnail,
-  //     code,
-  //     stock,
-  //   }
-
-  //   fs.appendFile(this.getProducts, JSON.stringify(product) + '\n', (err) => {
-  //     if (err) {
-  //       console.log(err)
-  //     }
-  //     console.log('Product added successfully')
-  //   })
-  // }
+      fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2))
+    } catch (error) {
+      return error.message
+    }
+  }
 
   getProducts() {
     return this.products
@@ -90,7 +74,8 @@ class ProductManager {
 
   getProductById(id) {
     try {
-      const productById = this.products.find((product) => product.id === id)
+      const parsedId = parseInt(id)
+      const productById = this.products.find((product) => product.id === parsedId)
       if (productById) {
         return productById
       } else {
@@ -101,14 +86,13 @@ class ProductManager {
     }
   }
 
-  updateProduct(id, field) {}
-
   deleteProduct(id) {
     try {
-      const productById = this.products.find((product) => product.id === id)
-      const indexOfItem = this.products.indexOf(productById)
-      if (productById) {
-        this.products.splice(indexOfItem, 1)
+      const productIndex = this.products.findIndex((product) => product.id === id)
+      if (productIndex !== -1) {
+        this.products.splice(productIndex, 1)
+        fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2))
+        console.log('Product deleted successfully')
       } else {
         throw new Error('Product not found')
       }
@@ -117,18 +101,3 @@ class ProductManager {
     }
   }
 }
-
-const productManager = new ProductManager()
-
-console.log(productManager.getProducts())
-
-productManager.addProduct({
-  title: 'Product 1',
-  description: 'Description 1',
-  price: 100,
-  thumbnail: 'thumbnail 1',
-  code: 'code 1',
-  stock: 10,
-})
-
-console.log(productManager.getProducts())
