@@ -6,15 +6,21 @@ class ProductManager {
   constructor() {
     this.path = FILE_PATH
     this.products = this.loadProducts()
-
-    if (this.products.length === 0) {
-      this.productsIdCounter = 1
-    } else {
-      const lastProduct = this.products[this.products.length - 1]
-      this.productsIdCounter = lastProduct ? lastProduct.id + 1 : 1
-    }
+    this.loadLastId()
   }
 
+  async loadLastId() {
+    try {
+      if (this.products.length === 0) {
+        this.productsIdCounter = 1
+      } else {
+        const lastProduct = this.products[this.products.length - 1]
+        this.productsIdCounter = lastProduct ? lastProduct.id + 1 : 1
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   async loadProducts() {
     try {
       try {
@@ -38,32 +44,34 @@ class ProductManager {
     }
   }
 
-  async addProduct({ title, description, price, thumbnail, code, stock }) {
-    if (this.products.some(product => product.code === code)) {
-      throw new Error(`Products with code ${code} already exists`)
+  async addProduct(newProduct) {
+    try {
+      if (this.products.some(product => product.code === newProduct.code)) {
+        throw new Error(`Products with code ${newProduct.code} already exists`)
+      }
+
+      if (
+        !newProduct.title ||
+        !newProduct.description ||
+        !newProduct.price ||
+        !newProduct.thumbnail ||
+        !newProduct.code ||
+        !newProduct.stock
+      ) {
+        throw new Error(
+          'Every product must have a title, description, price, thumbnail, code and stock'
+        )
+      }
+
+      newProduct.id = this.productsIdCounter++
+      this.products.push(newProduct)
+
+      await fs.writeFile(this.path, JSON.stringify(this.products, null, 2))
+
+      console.log('Product added successfully')
+    } catch (error) {
+      console.log(error)
     }
-
-    if (!title || !description || !price || !thumbnail || !code || !stock) {
-      throw new Error(
-        'Every product must have a title, description, price, thumbnail, code and stock'
-      )
-    }
-
-    const product = {
-      id: this.productsIdCounter++,
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-    }
-
-    this.products.push(product)
-
-    await fs.writeFile(this.path, JSON.stringify(this.products, null, 2))
-
-    console.log('Product added successfully')
   }
 
   async updateProduct(id, updatedProduct) {
@@ -78,7 +86,7 @@ class ProductManager {
 
       await fs.writeFile(this.path, JSON.stringify(this.products, null, 2))
     } catch (error) {
-      return error.message
+      console.log(error)
     }
   }
 
@@ -96,7 +104,7 @@ class ProductManager {
         throw new Error('Product not found')
       }
     } catch (error) {
-      return error.message
+      console.log(error)
     }
   }
 
@@ -111,7 +119,7 @@ class ProductManager {
         throw new Error('Product not found')
       }
     } catch (error) {
-      return error.message
+      console.log(error)
     }
   }
 }
