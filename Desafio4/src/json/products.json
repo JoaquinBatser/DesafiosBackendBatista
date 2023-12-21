@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "title": "base",
+    "description": "base",
+    "price": 0,
+    "thumbnail": "base",
+    "status": true,
+    "category": "base",
+    "code": "base-code",
+    "stock": 23
+  },
+  {
+    "id": 1,
+    "title": "a123s",
+    "description": "123",
+    "price": 54,
+    "thumbnail": "image",
+    "status": true,
+    "category": "12312312",
+    "code": "product-02",
+    "stock": 23
+  }
+]

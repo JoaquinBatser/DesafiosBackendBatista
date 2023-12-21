@@ -1,0 +1,13 @@
+<div>
+  <ul>
+    <h1>Users</h1>
+    {{#each users}}
+      {{#if this.active}}
+        <li>{{this.name}} {{this.lastName}} (active)</li>
+      {{else}}
+        <li>{{this.name}} {{this.lastName}} (inactive)</li>
+      {{/if}}
+    {{/each}}
+
+  </ul>
+</div>
