@@ -1,24 +1,112 @@
 [
   {
     "id": 0,
-    "title": "base",
-    "description": "base",
-    "price": 0,
-    "thumbnail": "base",
+    "title": "Classic White T-Shirt",
+    "description": "A comfortable and stylish white t-shirt for everyday wear.",
+    "price": 19.99,
+    "thumbnail": "white-tshirt.jpg",
     "status": true,
-    "category": "base",
-    "code": "base-code",
-    "stock": 23
+    "category": "Clothing",
+    "code": "WT-001",
+    "stock": 50
   },
   {
     "id": 1,
-    "title": "a123s",
-    "description": "123",
-    "price": 54,
-    "thumbnail": "image",
+    "title": "Smartphone Stand",
+    "description": "Adjustable and foldable smartphone stand for hands-free use.",
+    "price": 14.99,
+    "thumbnail": "smartphone-stand.jpg",
     "status": true,
-    "category": "12312312",
-    "code": "product-02",
-    "stock": 23
+    "category": "Electronics",
+    "code": "SS-002",
+    "stock": 30
+  },
+  {
+    "id": 2,
+    "title": "Cozy Knit Sweater",
+    "description": "Stay warm and stylish with this cozy knit sweater in assorted colors.",
+    "price": 39.99,
+    "thumbnail": "knit-sweater.jpg",
+    "status": true,
+    "category": "Clothing",
+    "code": "KS-003",
+    "stock": 25
+  },
+  {
+    "id": 3,
+    "title": "Wireless Bluetooth Earbuds",
+    "description": "High-quality wireless earbuds with Bluetooth connectivity.",
+    "price": 49.99,
+    "thumbnail": "bluetooth-earbuds.jpg",
+    "status": true,
+    "category": "Electronics",
+    "code": "WEB-004",
+    "stock": 40
+  },
+  {
+    "id": 4,
+    "title": "Leather Crossbody Bag",
+    "description": "A stylish and functional leather crossbody bag for daily use.",
+    "price": 59.99,
+    "thumbnail": "crossbody-bag.jpg",
+    "status": true,
+    "category": "Accessories",
+    "code": "LCB-005",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "title": "Stainless Steel Water Bottle",
+    "description": "Durable and eco-friendly stainless steel water bottle for hydration on the go.",
+    "price": 24.99,
+    "thumbnail": "water-bottle.jpg",
+    "status": true,
+    "category": "Home & Kitchen",
+    "code": "WB-006",
+    "stock": 35
+  },
+  {
+    "id": 6,
+    "title": "Men's Casual Sneakers",
+    "description": "Comfortable and stylish casual sneakers for men in various sizes.",
+    "price": 69.99,
+    "thumbnail": "sneakers.jpg",
+    "status": true,
+    "category": "Footwear",
+    "code": "CS-007",
+    "stock": 15
+  },
+  {
+    "id": 7,
+    "title": "HD Webcam with Microphone",
+    "description": "High-definition webcam with built-in microphone for crystal-clear video calls.",
+    "price": 34.99,
+    "thumbnail": "webcam.jpg",
+    "status": true,
+    "category": "Electronics",
+    "code": "HW-008",
+    "stock": 28
+  },
+  {
+    "id": 8,
+    "title": "Portable Power Bank",
+    "description": "Compact and powerful portable power bank for charging devices on the go.",
+    "price": 29.99,
+    "thumbnail": "power-bank.jpg",
+    "status": true,
+    "category": "Electronics",
+    "code": "PB-009",
+    "stock": 22
+  },
+  {
+    "id": 9,
+    "title": "Retro Sunglasses",
+    "description": "Vintage-inspired retro sunglasses for a stylish and timeless look.",
+    "price": 19.99,
+    "thumbnail": "sunglasses.jpg",
+    "status": true,
+    "category": "Accessories",
+    "code": "RS-010",
+    "stock": 18
   }
 ]
