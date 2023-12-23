@@ -4,23 +4,25 @@ const addProductBtn = document.getElementById('addProductBtn')
 const deleteProductBtn = document.getElementById('deleteProductBtn')
 const productList = document.getElementById('productList')
 
-addProductBtn.addEventListener('click', () => {
-  const title = document.getElementById('title').value
-  const description = document.getElementById('description').value
-  const price = document.getElementById('price').value
-  const thumbnail = document.getElementById('thumbnail').value
-  const code = document.getElementById('code').value
-  const category = document.getElementById('category').value
-  const stock = document.getElementById('stock').value
+addProductBtn.addEventListener('click', e => {
+  e.preventDefault()
+
+  const title = document.getElementById('title')
+  const description = document.getElementById('description')
+  const price = document.getElementById('price')
+  const thumbnail = document.getElementById('thumbnail')
+  const code = document.getElementById('code')
+  const category = document.getElementById('category')
+  const stock = document.getElementById('stock')
 
   const product = {
-    title,
-    description,
-    price,
-    thumbnail,
-    code,
-    category,
-    stock,
+    title: title.value,
+    description: description.value,
+    price: price.value,
+    thumbnail: thumbnail.value,
+    code: code.value,
+    category: category.value,
+    stock: stock.value,
   }
   socket.emit('addProduct', product)
 
@@ -34,8 +36,9 @@ addProductBtn.addEventListener('click', () => {
 })
 
 deleteProductBtn.addEventListener('click', () => {
-  const id = document.getElementById('id').value
-  socket.emit('deleteProduct', id)
+  const id = document.getElementById('id')
+  console.log(id)
+  socket.emit('deleteProduct', id.value)
   id.value = ''
   alert('Product deleted successfully')
 })

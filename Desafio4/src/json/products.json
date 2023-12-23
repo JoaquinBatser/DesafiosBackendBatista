@@ -1,16 +1,5 @@
 [
   {
-    "id": 0,
-    "title": "Classic White T-Shirt",
-    "description": "A comfortable and stylish white t-shirt for everyday wear.",
-    "price": 19.99,
-    "thumbnail": "white-tshirt.jpg",
-    "status": true,
-    "category": "Clothing",
-    "code": "WT-001",
-    "stock": 50
-  },
-  {
     "id": 1,
     "title": "Smartphone Stand",
     "description": "Adjustable and foldable smartphone stand for hands-free use.",
@@ -97,16 +86,5 @@
     "category": "Electronics",
     "code": "PB-009",
     "stock": 22
-  },
-  {
-    "id": 9,
-    "title": "Retro Sunglasses",
-    "description": "Vintage-inspired retro sunglasses for a stylish and timeless look.",
-    "price": 19.99,
-    "thumbnail": "sunglasses.jpg",
-    "status": true,
-    "category": "Accessories",
-    "code": "RS-010",
-    "stock": 18
   }
 ]

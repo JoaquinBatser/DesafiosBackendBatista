@@ -47,9 +47,9 @@ class ProductManager {
 
       await this.saveProducts(products)
 
-      console.log('Product added successfully')
+      return { message: 'Product added successfully', newProduct, success: true }
     } catch (error) {
-      console.log(error)
+      return { message: error, success: false }
     }
   }
 
@@ -96,9 +96,9 @@ class ProductManager {
       if (productIndex !== -1) {
         products.splice(productIndex, 1)
         await this.saveProducts(products)
-        console.log('Product deleted successfully')
+        return { message: 'Product deleted successfully', success: true }
       } else {
-        throw new Error('Product not found')
+        return { message: 'Product not found', success: false }
       }
     } catch (error) {
       console.log(error)

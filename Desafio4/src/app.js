@@ -34,7 +34,6 @@ const socketServer = new Server(httpServer)
 socketServer.on('connection', socket => {
   console.log('New client connected')
   socket.on('addProduct', async product => {
-    console.log(product)
     const title = product.title
     const description = product.description
     const price = product.price
@@ -53,8 +52,9 @@ socketServer.on('connection', socket => {
         category,
         stock,
       })
+
       const products = await productManager.getProducts()
-      addedProduct && socketServer.emit('updateProducts', products)
+      addedProduct.success && socketServer.emit('updateProducts', products)
     } catch (error) {
       console.log(error)
     }
@@ -64,7 +64,7 @@ socketServer.on('connection', socket => {
     try {
       const deletedProduct = await productManager.deleteProduct(Number(id))
       const products = await productManager.getProducts()
-      deletedProduct && socketServer.emit('updateProducts', products)
+      deletedProduct.success && socketServer.emit('updateProducts', products)
     } catch (error) {
       console.log(error)
     }
